@@ -13,6 +13,7 @@ import DemoLitsAndKeys from "./ListAndKeys/DemoLitsAndKeys";
 import DemoProps from "./Props/DemoProps";
 import BaiTapGioHang from "./components/BaiTapGioHang_Buoi3";
 import BaiTapGioHangRedux from "./BaiTapRedux/aiTapGioHangRedux";
+import BaiTapGameXucXac from "./BaiTapRedux/BaiTapGameXucXac/BaiTapGameXucXac";
 
 function App() {
   return (
@@ -39,7 +40,9 @@ function App() {
 
       {/* <BaiTapGioHang /> */}
 
-      <BaiTapGioHangRedux />
+      {/* <BaiTapGioHangRedux /> */}
+
+      <BaiTapGameXucXac/>
     </div>
   );
 }

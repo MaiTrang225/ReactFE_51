@@ -4,15 +4,15 @@ export default class SanPhamGHRedux extends Component {
   render() {
     return (
       <tr>
-        <td>1</td>
-        <td>Iphone</td>
+        <td>{this.props.spGioHang.maSP}</td>
+        <td>{this.props.spGioHang.tenSP}</td>
         <td></td>
         <td>
-          <img src="http://picsum.photos/50" />
+          <img src={this.props.hinhAnh} width={50}/>
         </td>
-        <td>11</td>
-        <td>1000</td>
-        <td>1000</td>
+        <td>{this.props.spGioHang.soLuong}</td>
+        <td>{this.props.spGioHang.giaBan}</td>
+        <td>{this.props.spGioHang.soLuong * this.props.spGioHang.giaBan}</td>
       </tr>
     )
   }
