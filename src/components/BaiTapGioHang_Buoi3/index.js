@@ -9,7 +9,6 @@
  */
 import React, { Component } from "react";
 import danhSachSanPham from "./data.json"; //Import data.json
-import Modal from "./Modal";
 import SanPham from "./SanPham";
 export default class BaiTapGioHang extends Component {
   state = {
@@ -25,29 +24,10 @@ export default class BaiTapGioHang extends Component {
       giaBan: 5700000,
       hinhAnh: "./img/vsphone.jpg",
     },
-    cardList: [],
+
   };
 
-  handleCardList = (sanPham) => {
-    // Tìm vị trí xem nó có tồn tại hay chưa?
-    const index = this.state.cardList.findIndex((card) => {
-      return card.maSP === sanPham.maSP;
-    });
-    let cardList = [...this.state.cardList];
-    if (index !== -1) {
-      // Tìm thấy thì tăng số lượnglượng
-      cardList[index].soLuong += 1;
-    } else {
-      // Ko tìm thấy thì thêm vào mảng
-      const newCard = { ...sanPham, soLuong: 1 };
-      cardList = [...cardList, newCard];
-    }
-
-    this.setState({
-      cardList,
-    });
-  };
-
+  
   handleSanPhamChiTiet = (sanPhamChiTiet) => {
     this.setState({
       //   sanPhamChiTiet: sanPhamChiTiet, //State ở đâu thì xét state ở đó
@@ -58,88 +38,27 @@ export default class BaiTapGioHang extends Component {
   renderDanhSachSanPham = () => {
     return danhSachSanPham.map((sanPham, index) => {
       return (
-        <div className="col-sm-4" key={index}>
+        <div className="col" key={index}>
           <SanPham
             product={sanPham}
             xuLyChiTiet={this.handleSanPhamChiTiet}
-            handleCardList={this.handleCardList}
+           
           />
         </div>
       );
     });
   };
-  // Xóa sản phẩm trong giỏ hàng
-
-  deleteItem = (maSp) => {
-    let gioHangUpdate = [...this.state.cardList];
-    const indexSP = gioHangUpdate.findIndex((spGH) => spGH.maSP === maSp);
-    if (indexSP != 1) {
-      gioHangUpdate.splice(indexSP, 1);
-    }
-    // Set lại state giỏ hàng
-    this.setState({ cardList: gioHangUpdate });
-  };
-
-  // Tăng giảm số lượng
-  tangGiamSoLuong = (maSP, tangGiam) => {
-    // tangGiam = true => Tăng, ngược lại flase thì giảm{
-    // console.log("maSP", maSP);
-    // console.log("TangGiam", tangGiam);
-    let gioHangUpdate = [...this.state.cardList];
-    let spGH = gioHangUpdate.find((sp) => sp.maSP === maSP);
-
-    if (tangGiam) {
-      spGH.soLuong += 1;
-    } else {
-      if (spGH.soLuong > 1) {
-        spGH.soLuong -= 1;
-      }
-    }
-
-    this.setState({
-      cardList: gioHangUpdate,
-    });
-  };
-  // Tính tổng số lượng
-
-  tongSoLuong = () => {
-    let tongSoLuong = this.state.cardList.reduce((soLuong, spGH, index) => {
-      return (soLuong += spGH.soLuong);
-    }, 0);
-    return tongSoLuong;
-  };
-
-  // Tổng số tiền
-
-  tongTien = () => {
-    let tongTien = this.state.cardList.reduce((tongSoTien, spGH, index) => {
-      return (tongSoTien += spGH.soLuong * spGH.giaBan);
-    }, 0);
-    return tongTien;
-  };
-
+  
   render() {
     return (
       <div>
         <section className="container">
           <h3 className="title text-center">Bài tập giỏ hàng</h3>
-          <div className="container text-center my-2">
-            <button
-              className="btn btn-danger "
-              data-toggle="modal"
-              data-target="#modelId"
-            >
-              Giỏ hàng ({this.tongSoLuong()}-{this.tongTien().toLocaleString()})
-            </button>
-          </div>
+
           <div className="container danh-sach-san-pham">
             <div className="row">{this.renderDanhSachSanPham()}</div>
           </div>
-          <Modal
-            tangGiamSoLuong={this.tangGiamSoLuong}
-            deleteItem={this.deleteItem}
-            cardList={this.state.cardList}
-          />
+         
           <div className="row">
             <div className="col-sm-5">
               <img
